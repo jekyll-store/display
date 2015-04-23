@@ -1,7 +1,7 @@
 {
   "name": "jekyll-store-display",
   "main": "./src/JekyllStoreDisplay.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Product Display plugin for Jekyll-Store Engine",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
     "sinon": "^1.14.1"
   },
   "peerDependencies": {
-    "jekyll-store-engine": "0.x"
+    "jekyll-store-engine": ">=0.1.1"
   },
   "scripts": {
     "test": "mocha"
