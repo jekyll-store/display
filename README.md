@@ -1,6 +1,6 @@
 # Jekll-Store/Display
 
-[![Build Status](https://travis-ci.org/jekyll-store/engine.svg?branch=master)](https://travis-ci.org/jekyll-store/engine)
+[![Build Status](https://travis-ci.org/jekyll-store/display.svg?branch=master)](https://travis-ci.org/jekyll-store/display)
 
 Product Display plugin for [Jekyll-Store Engine](https://github.com/jekyll-store/engine).
 
