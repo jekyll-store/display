@@ -1,4 +1,5 @@
 var Filters = {
+  Contains: require('./ContainsFilter'),
   Page: require('./PageFilter'),
   Ranges: require('./RangesFilter'),
   Search: require('./SearchFilter'),
