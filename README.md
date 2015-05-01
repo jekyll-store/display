@@ -134,6 +134,19 @@ JekyllStoreEngine.Actions.setDisplayFilter({
 });
 ```
 
+### TagsFilter
+
+Allows products with a field that contains one of the supplied strings.
+
+Example:
+
+```javascript
+JekyllStoreEngine.Actions.setDisplayFilter({
+  name: 'sizes-contain',
+  filter: JekyllStoreEngine.Filters.Tags('sizes', ['Small', 'Medium'])
+});
+```
+
 ## Contributing
 
 1. [Fork it](https://github.com/jekyll-store/display/fork)
