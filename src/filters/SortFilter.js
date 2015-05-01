@@ -3,7 +3,9 @@ function SortFilter(field, direction) {
     var products = display.get('products');
 
     products = products.sort(function(a, b) {
-      return a.get(field).cmp(b.get(field));
+      var fieldA = a.get(field)
+      var fieldB = b.get(field)
+      return fieldA.cmp ? fieldA.cmp(fieldB) : fieldA > fieldB;
     });
 
     if(direction == SortFilter.DESC) { products = products.reverse(); }

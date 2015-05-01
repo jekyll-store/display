@@ -7,14 +7,22 @@ var SortFilter = require('../../src/filters/SortFilter');
 
 describe('SortFilter', function() {
   var display = I.fromJS({
-    products: [{ age: B(13) }, { age: B(10) }, { age: B(39) }]
+    products: [
+      { name: 'John', age: B(13) },
+      { name: 'Aaron', age: B(10) },
+      { name: 'Helen', age: B(39) }
+    ]
   });
 
   it('sorts ascending', function() {
     var filter = SortFilter('age', SortFilter.ASC);
 
     var expected = I.fromJS({
-      products: [{ age: B(10) }, { age: B(13) }, { age: B(39) }]
+      products: [
+        { name: 'Aaron', age: B(10) },
+        { name: 'John', age: B(13) },
+        { name: 'Helen', age: B(39) }
+      ]
     });
 
     assert(filter(display).equals(expected));
@@ -24,7 +32,25 @@ describe('SortFilter', function() {
     var filter = SortFilter('age', SortFilter.DESC);
 
     var expected = I.fromJS({
-      products: [{ age: B(39) }, { age: B(13) }, { age: B(10) }]
+      products: [
+        { name: 'Helen', age: B(39) },
+        { name: 'John', age: B(13) },
+        { name: 'Aaron', age: B(10) }
+      ]
+    });
+
+    assert(filter(display).equals(expected));
+  });
+
+  it('sorts strings', function() {
+    var filter = SortFilter('name', SortFilter.ASC);
+
+    var expected = I.fromJS({
+      products: [
+        { name: 'Aaron', age: B(10) },
+        { name: 'Helen', age: B(39) },
+        { name: 'John', age: B(13) }
+      ]
     });
 
     assert(filter(display).equals(expected));

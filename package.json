@@ -1,7 +1,7 @@
 {
   "name": "jekyll-store-display",
   "main": "./src/JekyllStoreDisplay.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Product Display plugin for Jekyll-Store Engine",
   "repository": {
     "type": "git",
