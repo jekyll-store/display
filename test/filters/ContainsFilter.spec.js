@@ -7,10 +7,10 @@ var ContainsFilter = require('../../src/filters/ContainsFilter');
 describe('ContainsFilter', function() {
   var display = I.fromJS({
     products: [
-      { id: 1, sizes: 'Small' },
-      { id: 2, sizes: 'MediumLarge' },
-      { id: 3, sizes: 'Medium' },
-      { id: 4, sizes: 'SmallLarge' }
+      { id: 1, sizes: ['Small'] },
+      { id: 2, sizes: ['Medium', 'Large'] },
+      { id: 3, sizes: ['Medium'] },
+      { id: 4, sizes: ['Small', 'Large'] }
     ]
   });
 
@@ -18,7 +18,7 @@ describe('ContainsFilter', function() {
     var filter = ContainsFilter('sizes', ['Small']);
 
     var expected = I.fromJS({
-      products: [{ id: 1, sizes: 'Small' }, { id: 4, sizes: 'SmallLarge' }]
+      products: [{ id: 1, sizes: ['Small'] }, { id: 4, sizes: ['Small', 'Large'] }]
     });
 
     assert(filter(display).equals(expected));
@@ -29,9 +29,9 @@ describe('ContainsFilter', function() {
 
     var expected = I.fromJS({
       products: [
-        { id: 1, sizes: 'Small' },
-        { id: 2, sizes: 'MediumLarge' },
-        { id: 4, sizes: 'SmallLarge' }
+        { id: 1, sizes: ['Small'] },
+        { id: 2, sizes: ['Medium', 'Large'] },
+        { id: 4, sizes: ['Small', 'Large'] }
       ]
     });
 
