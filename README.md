@@ -134,7 +134,7 @@ JekyllStoreEngine.Actions.setDisplayFilter({
 });
 ```
 
-### TagsFilter
+### ContainsFilter
 
 Allows products with a field that contains one of the supplied strings.
 
@@ -143,7 +143,7 @@ Example:
 ```javascript
 JekyllStoreEngine.Actions.setDisplayFilter({
   name: 'sizes-contain',
-  filter: JekyllStoreEngine.Filters.Tags('sizes', ['Small', 'Medium'])
+  filter: JekyllStoreEngine.Filters.Contains('sizes', ['Small', 'Medium'])
 });
 ```
 
