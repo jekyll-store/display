@@ -7,22 +7,14 @@ var SortFilter = require('../../src/filters/SortFilter');
 
 describe('SortFilter', function() {
   var display = I.fromJS({
-    products: [
-      { name: 'John', age: B(13) },
-      { name: 'Aaron', age: B(10) },
-      { name: 'Helen', age: B(39) }
-    ]
+    products: [{ age: B(13) }, { age: B(10) }, { age: B(39) }]
   });
 
   it('sorts ascending', function() {
     var filter = SortFilter('age', SortFilter.ASC);
 
     var expected = I.fromJS({
-      products: [
-        { name: 'Aaron', age: B(10) },
-        { name: 'John', age: B(13) },
-        { name: 'Helen', age: B(39) }
-      ]
+      products: [{ age: B(10) }, { age: B(13) }, { age: B(39) }]
     });
 
     assert(filter(display).equals(expected));
@@ -32,11 +24,7 @@ describe('SortFilter', function() {
     var filter = SortFilter('age', SortFilter.DESC);
 
     var expected = I.fromJS({
-      products: [
-        { name: 'Helen', age: B(39) },
-        { name: 'John', age: B(13) },
-        { name: 'Aaron', age: B(10) }
-      ]
+      products: [{ age: B(39) }, { age: B(13) }, { age: B(10) }]
     });
 
     assert(filter(display).equals(expected));
@@ -45,11 +33,35 @@ describe('SortFilter', function() {
   it('sorts strings', function() {
     var filter = SortFilter('name', SortFilter.ASC);
 
+    var display = I.fromJS({
+      products: [
+        { name: 'Peter George' },
+        { name: 'Jorden Jeffary' },
+        { name: 'Poly Beuytrad' },
+        { name: 'Smith Belish' },
+        { name: 'Mark Small' },
+        { name: 'James Furrow' },
+        { name: 'Jaden Long' },
+        { name: 'Andrew Maddison' },
+        { name: 'James Furrow' },
+        { name: 'Polly Anna' },
+        { name: 'Larry Styles' },
+      ]
+    });
+
     var expected = I.fromJS({
       products: [
-        { name: 'Aaron', age: B(10) },
-        { name: 'Helen', age: B(39) },
-        { name: 'John', age: B(13) }
+        { name: 'Andrew Maddison' },
+        { name: 'Jaden Long' },
+        { name: 'James Furrow' },
+        { name: 'James Furrow' },
+        { name: 'Jorden Jeffary' },
+        { name: 'Larry Styles' },
+        { name: 'Mark Small' },
+        { name: 'Peter George' },
+        { name: 'Polly Anna' },
+        { name: 'Poly Beuytrad' },
+        { name: 'Smith Belish' },
       ]
     });
 
