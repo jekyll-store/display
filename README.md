@@ -1,4 +1,4 @@
-# Jekll-Store/Display
+# Jekyll-Store/Display
 
 [![Build Status](https://travis-ci.org/jekyll-store/display.svg?branch=master)](https://travis-ci.org/jekyll-store/display)
 
