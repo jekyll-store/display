@@ -1,38 +1,37 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
-var I = require('immutable');
-var rewire = require('rewire');
-var DisplayStore = rewire('../../src/DisplayStore');
+var I = require('seamless-immutable');
+var s = require('../../src/DisplayStore');
 
 describe('DisplayStore', function() {
-  sinon.spy(DisplayStore, 'trigger');
-  function result() { return DisplayStore.trigger.lastCall.args[0]; }
-
   var reverseFilter = function(display) {
-    return display.set('products', display.get('products').reverse());
+    return display.merge({ products: display.products.asMutable().reverse() });
   };
 
   var takeFilter = function(display) {
-    return display.set('products', display.get('products').take(2));
+    return display.merge({ products: display.products.slice(0, 2) });
   };
 
   var cycleFilter = function(display) {
-    var products = display.get('products');
-    var cycled = products.shift().push(products.first());
-    return display.set('products', cycled);
+    var cycled = display.products.slice(1, -1).concat(display.products[0]);
+    return display.merge({ products: cycled });
   };
 
   cycleFilter.precedence = -1;
 
-  DisplayStore.products = I.fromJS({
-    'crossbow': { name: 'crossbow' },
-    'dagger': { name: 'dagger' },
-    'cannon': { name: 'cannon' },
-    'foil': { name: 'foil' }
+  before(function() {
+    s.trigger = sinon.spy();
+
+    s.products = I({
+      'crossbow': { name: 'crossbow' },
+      'dagger': { name: 'dagger' },
+      'cannon': { name: 'cannon' },
+      'foil': { name: 'foil' }
+    });
   });
 
   it('has no filter initially', function() {
-    var expected = I.fromJS({
+    var expected = I({
       products: [
         { name: 'crossbow' },
         { name: 'dagger' },
@@ -40,38 +39,26 @@ describe('DisplayStore', function() {
         { name: 'foil' }
       ]
     });
-    assert(DisplayStore.getInitialState().display.equals(expected));
+    assert.deepEqual(s.getInitialState(), { display: expected });
   });
 
   it('adds filters', function() {
-    DisplayStore.onSetDisplayFilter({ name: 'reverse', filter: reverseFilter });
-    DisplayStore.onSetDisplayFilter({ name: 'take', filter: takeFilter });
-
-    var expected = I.fromJS({
-      products: [{ name: 'foil' }, { name: 'cannon' }]
-    });
-
-    assert(result().display.equals(expected));
+    s.onSetDisplayFilter({ name: 'reverse', filter: reverseFilter });
+    s.onSetDisplayFilter({ name: 'take', filter: takeFilter });
+    var expected = I({ products: [{ name: 'foil' }, { name: 'cannon' }] });
+    assert.deepEqual(s.trigger.lastCall.args[0], { display: expected });
   });
 
   it('removes filters', function() {
-    DisplayStore.onRemoveDisplayFilter({ name: 'reverse' });
-
-    var expected = I.fromJS({
-      products: [{ name: 'crossbow' }, { name: 'dagger' }]
-    });
-
-    assert(result().display.equals(expected));
+    s.onRemoveDisplayFilter({ name: 'reverse' });
+    var expected = I({ products: [{ name: 'crossbow' }, { name: 'dagger' }] });
+    assert.deepEqual(s.trigger.lastCall.args[0], { display: expected });
   });
 
   it('respects precedence', function() {
-    DisplayStore.onSetDisplayFilter({ name: 'cycle', filter: cycleFilter });
-
-    var expected = I.fromJS({
-      products: [{ name: 'dagger' }, { name: 'cannon' }]
-    });
-
-    assert(result().display.equals(expected));
+    s.onSetDisplayFilter({ name: 'cycle', filter: cycleFilter });
+    var expected = I({ products: [{ name: 'dagger' }, { name: 'cannon' }] });
+    assert.deepEqual(s.trigger.lastCall.args[0], { display: expected });
   });
 
 });

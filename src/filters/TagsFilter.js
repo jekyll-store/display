@@ -1,12 +1,10 @@
 function TagsFilter(field, tags) {
   return function(display) {
-    var products = display.get('products');
-
-    products = products.filter(function(product) {
-      return tags.indexOf(product.get(field)) >= 0;
+    var products = display.products.filter(function(product) {
+      return tags.indexOf(product[field]) >= 0;
     });
 
-    return display.set('products', products);
+    return display.merge({ products: products });
   };
 }
 

@@ -46,19 +46,18 @@ Example output:
 
 ```javascript
 {
-  display: Immutable.Map({
-    products: Immutable.List([
-      Immutable.Map({ name: 'Slippers', price: Big(45.50) }),
-      Immutable.Map({ name: 'Crocs', price: Big(88.00) }),
-      Immutable.Map({ name: 'Sandals', price: Big(5.25) })
-    ]),
-
-    page: Immutable.Map({
+  display: Immutable({
+    products: [
+      { name: 'Slippers', price: 45.50 }),
+      { name: 'Crocs', price: 88.00 }),
+      { name: 'Sandals', price: 5.25 })
+    ],
+    page: {
       current: 2,
-      numbers: Immutable.List([1, 2, 3, 4, 5, 6, 7]),
+      numbers: [1, 2, 3, 4, 5, 6, 7],
       prev: 1,
       next: 3
-    })
+    }
   })
 }
 ```

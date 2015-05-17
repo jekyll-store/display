@@ -1,7 +1,7 @@
 {
   "name": "jekyll-store-display",
   "main": "./src/JekyllStoreDisplay.js",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Product Display plugin for Jekyll-Store Engine",
   "repository": {
     "type": "git",
@@ -9,17 +9,16 @@
   },
   "dependencies": {
     "big.js": "^3.0.1",
-    "immutable": "^3.6.4",
-    "reflux": "^0.2.7"
+    "reflux": "^0.2.7",
+    "seamless-immutable": "^2.3.2"
   },
   "devDependencies": {
     "chai": "^2.1.2",
     "mocha": "^2.2.1",
-    "rewire": "^2.3.1",
     "sinon": "^1.14.1"
   },
   "peerDependencies": {
-    "jekyll-store-engine": ">=0.1.1"
+    "jekyll-store-engine": ">=0.2.0"
   },
   "scripts": {
     "test": "mocha"

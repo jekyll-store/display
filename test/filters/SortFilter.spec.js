@@ -1,39 +1,25 @@
 var assert = require('chai').assert;
 var sinon = require('sinon');
-var I = require('immutable');
-var B = require('big.js');
-
+var I = require('seamless-immutable');
 var SortFilter = require('../../src/filters/SortFilter');
 
 describe('SortFilter', function() {
-  var display = I.fromJS({
-    products: [{ age: B(13) }, { age: B(10) }, { age: B(39) }]
-  });
+  var display = I({ products: [{ age: 13 }, { age: 10 }, { age: 39 }] });
 
   it('sorts ascending', function() {
-    var filter = SortFilter('age', SortFilter.ASC);
-
-    var expected = I.fromJS({
-      products: [{ age: B(10) }, { age: B(13) }, { age: B(39) }]
-    });
-
-    assert(filter(display).equals(expected));
+    var expected = I({ products: [{ age: 10 }, { age: 13 }, { age: 39 }] });
+    assert.deepEqual(SortFilter('age', SortFilter.ASC)(display), expected);
   });
 
   it('sorts descending', function() {
-    var filter = SortFilter('age', SortFilter.DESC);
-
-    var expected = I.fromJS({
-      products: [{ age: B(39) }, { age: B(13) }, { age: B(10) }]
-    });
-
-    assert(filter(display).equals(expected));
+    var expected = I({ products: [{ age: 39 }, { age: 13 }, { age: 10 }] });
+    assert.deepEqual(SortFilter('age', SortFilter.DESC)(display), expected);
   });
 
   it('sorts strings', function() {
     var filter = SortFilter('name', SortFilter.ASC);
 
-    var display = I.fromJS({
+    var display = I({
       products: [
         { name: 'Peter George' },
         { name: 'Jorden Jeffary' },
@@ -49,7 +35,7 @@ describe('SortFilter', function() {
       ]
     });
 
-    var expected = I.fromJS({
+    var expected = I({
       products: [
         { name: 'Andrew Maddison' },
         { name: 'Jaden Long' },
@@ -65,6 +51,6 @@ describe('SortFilter', function() {
       ]
     });
 
-    assert(filter(display).equals(expected));
+    assert.deepEqual(filter(display), expected);
   });
 });

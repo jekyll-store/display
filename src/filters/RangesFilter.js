@@ -1,15 +1,13 @@
 function RangesFilter(field, ranges) {
   return function(display) {
-    var products = display.get('products');
-
-    products = products.filter(function(product) {
-      return ranges.some(function(range) {
-        var value = product.get(field);
-        if(value.gte(range[0]) && value.lte(range[1])) { return true; }
-      });
+    var products = display.products.filter(function(product) {
+      for(var i = 0; i < ranges.length; i++) {
+        if(product[field] >= ranges[i][0] && product[field] <= ranges[i][1]) {
+          return true;
+        }
+      }
     });
-
-    return display.set('products', products);
+    return display.merge({ products: products });
   };
 }
 
